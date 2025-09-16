@@ -95,7 +95,7 @@ const Footer = () => {
           <div className="col-md-3 mb-4">
             <h6 className="fw-bold">CONTACT</h6>
             <p className="text-muted mt-3 mb-1">1234 Luxury Drive</p>
-            <p className="text-muted mb-1">San Francisco, CA 94102</p>
+            <p className="text-muted mb-1">UP,LUCKNOW  India</p>
             <p className="text-muted mb-1">+1 234 567 890</p>
             <p className="text-muted">info@example.com</p>
           </div>

@@ -1,32 +1,31 @@
 import React from "react";
-import { assets } from "../assets/assets" ;
-import{motion} from 'motion/react'
+import { motion } from "motion/react";
 
 const Testimonial = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Emma Rodriguez",
-      location: "Barcelona, Spain",
-      image: assets.testimonial_image_1,
+      name: "Rohit Verma",
+      location: "Lucknow, Uttar Pradesh",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
       testimonial:
-        "I've rented cars from various companies, but the experience with CarRental was exceptional.",
+        "CarRental की सर्विस ने मेरी शादी में काफी मदद की। गाड़ी समय पर मिली और बहुत साफ-सुथरी थी।",
     },
     {
       id: 2,
-      name: "John Smith",
-      location: "New York, USA",
-      image: assets.testimonial_image_2,
+      name: "Priya Singh",
+      location: "Varanasi, Uttar Pradesh",
+      image: "https://randomuser.me/api/portraits/women/45.jpg",
       testimonial:
-        "CarRental made my trip so much easier. The car was delivered right to my door, and the customer service was fantastic!",
+        "वाराणसी में टूरिस्ट ट्रिप के लिए कार बुक की थी। ड्राइवर बहुत प्रोफेशनल था और पूरा सफर आरामदायक रहा।",
     },
     {
       id: 3,
-      name: "Ava Johnson",
-      location: "Sydney, Australia",
-      image: assets.testimonial_image_1,
+      name: "Aman Yadav",
+      location: "Kanpur, Uttar Pradesh",
+      image: "https://randomuser.me/api/portraits/men/76.jpg",
       testimonial:
-        "I highly recommend CarRental! Their fleet is amazing, and I always feel like I'm getting the best deal with excellent service.",
+        "मुझे ऑफिस के काम से बाहर जाना पड़ा। CarRental ने बेहतरीन रेट और सर्विस दी। बहुत बढ़िया अनुभव रहा।",
     },
   ];
 
@@ -34,10 +33,9 @@ const Testimonial = () => {
     <div className="container py-5">
       {/* Section Heading */}
       <div className="text-center mb-5">
-        <h2 className="fw-bold">Customer Testimonials</h2>
+        <h2 className="fw-bold">ग्राहक समीक्षा (Customer Testimonials)</h2>
         <p className="text-muted">
-          Hear what our users say about us. We're always looking for ways to
-          improve. If you had a positive experience, share your review!
+          देखिए हमारे यूज़र्स का अनुभव। अगर आपको हमारी सर्विस पसंद आई तो आप भी रिव्यू शेयर करें!
         </p>
       </div>
 
@@ -45,15 +43,13 @@ const Testimonial = () => {
       <div className="row g-4 justify-content-center">
         {testimonials.map((t, index) => (
           <motion.div
-          initially={{ opacity: 0, y: 40 }}
-          whileInview={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5,delay: index * 0.1 }}
-            viewport={{once: true ,amount: 0.4 }}
-          
-          
-          
-          
-          key={index} className="col-md-6 col-lg-4">
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true, amount: 0.4 }}
+            key={t.id}
+            className="col-md-6 col-lg-4"
+          >
             <div className="card shadow-sm border-0 h-100">
               <div className="card-body">
                 {/* Profile */}
@@ -77,7 +73,7 @@ const Testimonial = () => {
                     .map((_, i) => (
                       <img
                         key={i}
-                        src={assets.star_icon}
+                        src="https://cdn-icons-png.flaticon.com/512/2107/2107957.png"
                         alt="star"
                         className="me-1"
                         style={{ width: "16px", height: "16px" }}

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { assets, cityList } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
-import {motion} from 'motion/react'
+import { motion } from "motion/react";
+import { assets } from "../assets/assets";
 
 const Hero = () => {
   const [pickupLocation, setPickupLocation] = useState("");
-  const { pickupDate, setPickupDate, returnDate, setReturnDate, navigate } = useAppContext();
+  const { pickupDate, setPickupDate, returnDate, setReturnDate, navigate } =
+    useAppContext();
+
+  // ✅ Manually added UP cities
+  const cityList = ["Lucknow", "Kanpur", "Varanasi", "Prayagraj", "Noida"];
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -20,22 +24,25 @@ const Hero = () => {
   };
 
   return (
-    <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8}}
-    className="container mt-5">
-      <motion.h1 initial={{y: 50, opacity: 0 }}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="container mt-5"
+    >
+      <motion.h1
+        initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5,delay: 0.2 }}
-      
-      
-      className="text-center mb-4">Luxury Cars on Rent</motion.h1>
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-center mb-4"
+      >
+        Luxury Cars on Rent
+      </motion.h1>
 
       <motion.form
-      initial={{scale:0.95, opacity: 0 ,y: -50}}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5 }}
+        initial={{ scale: 0.95, opacity: 0, y: -50 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
         onSubmit={handleSearch}
         className="p-4 border rounded shadow bg-light"
       >
@@ -95,21 +102,26 @@ const Hero = () => {
           {/* Submit Button */}
           <div className="col-md-2 text-center">
             <motion.button
-            whileHover={{scale: 1.05}}
-            whileTap={{scale: 0.95}}
-
-            
-            type="submit" className="btn btn-primary w-100">
-              <img src={assets.search_icon}alt="search" />Search
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="btn btn-primary w-100"
+            >
+              Search
             </motion.button>
           </div>
         </div>
       </motion.form>
-     <motion.img 
-     initial={{y:100,opacity: 0}}
-     animate={{ y: 0, opacity: 1 }}
-     transition={{ duration: 0.8, delay: 1 }}
-     src={assets.main_car}  alt="car"  className="max-h-75" />
+
+      {/* Test ke liye ek static car image (free placeholder) */}
+      <motion.img
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        src={assets.main_car}
+        alt="car"
+        className="img-fluid mt-4 rounded shadow"
+      />
     </motion.div>
   );
 };
