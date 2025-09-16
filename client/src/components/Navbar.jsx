@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
-import {motion} from 'motion-react';
+import {motion} from 'motion/react';
 
 const Navbar = () => {
   const { setShowLogin, user, logout, isOwner, axios, setIsOwner } = useAppContext();
@@ -31,7 +31,7 @@ const Navbar = () => {
       initial={{y:-20,opacity:0}} 
       animate={{y:0, opacity:1}}
       transition={{type:"spring", stiffness:260, damping:20}}
-      
+
        className="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
       <div className="container-fluid">
         {/* Logo */}

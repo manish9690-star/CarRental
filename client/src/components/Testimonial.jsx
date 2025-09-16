@@ -1,6 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets" ;
-import{motion} from 'motion-react'
+import{motion} from 'motion/react'
 
 const Testimonial = () => {
   const testimonials = [
@@ -47,7 +47,7 @@ const Testimonial = () => {
           <motion.div
           initially={{ opacity: 0, y: 40 }}
           whileInview={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5,delay: index * 0.1,ease: easeOut }}
+          transition={{ duration: 0.5,delay: index * 0.1 }}
             viewport={{once: true ,amount: 0.4 }}
           
           
