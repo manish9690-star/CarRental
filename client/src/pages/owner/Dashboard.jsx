@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { assets, dummyDashboardData } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import { useAppContext } from "../../context/AppContext";
+import { toast } from "react-hot-toast";
 
 const Dashboard = () => {
-  const {axios ,isOwner,currency}= useAppContext();
+  const { axios, isOwner, currency } = useAppContext();
+
   // State for dashboard data
   const [data, setData] = useState({
     totalCars: 0,
@@ -14,33 +16,37 @@ const Dashboard = () => {
     recentBookings: [],
   });
 
-  // useEffect to load dummy data (future me API call aayega yaha)
-  
+  const [loading, setLoading] = useState(true);
+
   const dashboardCards = [
     { title: "Total Cars", value: data.totalCars, icon: assets.carIconColored },
     { title: "Total Bookings", value: data.totalBookings, icon: assets.listIconColored },
     { title: "Pending Bookings", value: data.pendingBookings, icon: assets.cautionIconColored },
     { title: "Completed Bookings", value: data.completedBookings, icon: assets.check_icon },
   ];
+
   const fetchDashboardData = async () => {
-    try{
-      const {data}=await axios.get('/api/owner/dashboard');
-     if(data.success){
-       setData(data.dashboardData);
-     }else{
-      toast.error(data.message);
-    }
-  }catch(error){
+    try {
+      setLoading(true);
+      const { data } = await axios.get("/api/owner/dashboard");
+      if (data.success) {
+        setData(data.dashboardData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
-  
-  }
+  };
 
   useEffect(() => {
-    if(isOwner){
+    if (isOwner) {
       fetchDashboardData();
     }
-    },[isOwner]);
+  }, [isOwner]);
+
   return (
     <div className="container-fluid p-4">
       {/* Header */}
@@ -65,7 +71,9 @@ const Dashboard = () => {
                 />
                 <div>
                   <h6 className="text-muted mb-1">{card.title}</h6>
-                  <h4 className="fw-bold mb-0">{card.value}</h4>
+                  <h4 className="fw-bold mb-0">
+                    {loading ? "..." : card.value}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -80,7 +88,9 @@ const Dashboard = () => {
           <div className="card shadow-sm border-0 h-100">
             <div className="card-body">
               <h5 className="fw-semibold">Monthly Revenue</h5>
-              <h2 className="fw-bold text-primary">${data.monthlyRevenue}</h2>
+              <h2 className="fw-bold text-primary">
+                {currency}{loading ? "..." : data.monthlyRevenue}
+              </h2>
               <p className="text-muted mb-0">Revenue for current month</p>
             </div>
           </div>
@@ -92,7 +102,11 @@ const Dashboard = () => {
             <div className="card-body">
               <h5 className="fw-semibold mb-3">Recent Bookings</h5>
               <ul className="list-group list-group-flush">
-                {data.recentBookings.length > 0 ? (
+                {loading ? (
+                  <li className="list-group-item text-muted text-center">
+                    Loading recent bookings...
+                  </li>
+                ) : data.recentBookings.length > 0 ? (
                   data.recentBookings.map((booking) => (
                     <li
                       key={booking._id}
@@ -100,18 +114,22 @@ const Dashboard = () => {
                     >
                       <div>
                         <h6 className="mb-0">
-                          {booking.car.brand} {booking.car.model}
+                          {booking?.car
+                            ? `${booking.car.brand} ${booking.car.model}`
+                            : "Car not available"}
                         </h6>
-                        <small className="text-muted">{booking.status}</small>
+                        <small className="text-muted">
+                          {booking?.status || "Unknown"}
+                        </small>
                       </div>
                       <span className="fw-bold text-success">
-                        ${booking.price}
+                        {currency}{booking?.price ?? 0}
                       </span>
                     </li>
                   ))
                 ) : (
                   <li className="list-group-item text-muted text-center">
-                    Loading recent bookings...
+                    No recent bookings available
                   </li>
                 )}
               </ul>
